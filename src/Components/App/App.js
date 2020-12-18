@@ -93,11 +93,11 @@ function TicketList() {
   return (
     <div className="TicketList">
       <div>
-        { tickets && tickets.map(tkt => <Ticket key={tkt.id} message={tkt} /> ) }
+        {tickets && tickets.map(tkt => <Ticket key={tkt.id} message={tkt} />)}
       </div>
       <form onSubmit={sendTicket}>
-        <input value={title} onChange={(e) => setTitle(e.target.value)} required />
-        <input value={description} onChange={(e) => setDescription(e.target.value)} required />
+        <input value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} required />
+        <textarea value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)} rows="4" required />
         <button type="submit">Open Ticket</button>
       </form>
     </div>

@@ -1,5 +1,9 @@
-h1, p, button {
+h1, p, button, textarea, input {
   font-family: 'Prompt', sans-serif;
+}
+
+button {
+  cursor: pointer;
 }
 
 body {
@@ -27,7 +31,6 @@ body {
 
 .SignIn button {
   padding: 10px;
-  cursor: pointer;
   display: block;
   margin: auto;
   margin-top: 20px;
@@ -48,5 +51,45 @@ body {
 .SignOut button {
   padding: 10px;
   margin: 10px;
-  cursor: pointer;
+}
+
+/* TicketList */
+.TicketList {
+  text-align: center;
+}
+
+.TicketList form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin: auto;
+}
+
+.TicketList form input, .TicketList form button {
+  margin: 5px;
+}
+
+/* Ticket */
+
+.Ticket {
+  text-align: center;
+  background-color: #2196f3;
+  width: 300px;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 20px;
+  word-break: break-word;
+}
+
+.Ticket img {
+  width: 40px;
+  border-radius: 20px;
+}
+
+.Ticket h1 {
+  font-size: 24px;
+}
+
+.Ticket p {
+  font-size: 16px;
 }
