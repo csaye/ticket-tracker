@@ -6,8 +6,10 @@ body {
   background-color: #efefef;
 }
 
-header {
-  position: fixed;
+/* App */
+
+.App header {
+  /* position: fixed; */
   width: 100%;
   background-color: #fff;
   display: flex;
@@ -16,16 +18,12 @@ header {
   height: 60px;
 }
 
-header h1 {
+.App header h1 {
   font-size: 36px;
   padding: 10px;
 }
 
 /* SignIn */
-
-.SignIn {
-  padding-top: 60px;
-}
 
 .SignIn button {
   padding: 10px;
