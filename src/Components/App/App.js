@@ -23,7 +23,7 @@ function App() {
   const [user] = useAuthState(auth);
 
   return (
-    <div className="App">
+    <div>
       <header>
         <h1>Team Tracker</h1>
       </header>
