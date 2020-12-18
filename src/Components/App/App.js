@@ -20,6 +20,7 @@ firebase.initializeApp(config);
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 
+// App
 function App() {
 
   const [user] = useAuthState(auth);
@@ -29,14 +30,15 @@ function App() {
       <header>
         <h1>Team Tracker</h1>
           { auth.currentUser && <SignOut /> }
-        <section>
-          { !auth.currentUser && <SignIn /> }
-        </section>
       </header>
+      <section id="hellos">
+        { !auth.currentUser && <SignIn /> }
+      </section>
     </div>
   );
 }
 
+// SignIn
 function SignIn() {
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -50,6 +52,7 @@ function SignIn() {
   );
 }
 
+// SignOut
 function SignOut() {
   return (
     <div className="SignOut">

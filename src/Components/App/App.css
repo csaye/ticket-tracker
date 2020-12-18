@@ -1,9 +1,54 @@
-/* App */
+h1, p, button {
+  font-family: 'Prompt', sans-serif;
+}
 
-.App body {
+body {
   background-color: #efefef;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+header h1 {
+  font-size: 36px;
+  padding: 10px;
 }
 
 /* SignIn */
 
+.SignIn {
+  padding-top: 60px;
+}
+
+.SignIn button {
+  padding: 10px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+
 /* SignOut */
+
+.SignOut {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.SignIn p {
+  font-size: 16px;
+}
+
+.SignOut button {
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
