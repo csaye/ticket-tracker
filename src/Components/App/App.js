@@ -57,7 +57,8 @@ function SignIn() {
 function SignOut() {
   return (
     <div className="SignOut">
-      <p>Signed in as { auth.currentUser?.displayName } </p>
+      <p>Signed in as {auth.currentUser.displayName} </p>
+      <img src={auth.currentUser.photoURL} alt="" />
       <button onClick={() => auth.signOut()}>Sign Out</button>
     </div>
   );
@@ -76,12 +77,13 @@ function TicketList() {
 
   const sendTicket = async(e) => {
     e.preventDefault();
-    const { uid, photoURL } = auth.currentUser;
+    const { uid, photoURL, displayName } = auth.currentUser;
 
     await ticketsRef.add({
       title,
       description,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      displayName,
       uid,
       photoURL
     });
@@ -96,8 +98,8 @@ function TicketList() {
         {tickets && tickets.map(tkt => <Ticket key={tkt.id} message={tkt} />)}
       </div>
       <form onSubmit={sendTicket}>
-        <input value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} required />
-        <textarea value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)} rows="4" required />
+        <input value={title} placeholder="Title" maxLength="128" onChange={(e) => setTitle(e.target.value)} required />
+        <textarea value={description} placeholder="Description" maxLength="1024" onChange={(e) => setDescription(e.target.value)} rows="4" required />
         <button type="submit">Open Ticket</button>
       </form>
     </div>
@@ -106,13 +108,20 @@ function TicketList() {
 
 // Ticket
 function Ticket(props) {
-  const { title, description, uid, photoURL } = props.message;
+
+  const { title, description, id, uid, photoURL, displayName, createdAt } = props.message;
+
+  const resolveTicket = () => {
+    firestore.collection('tickets').doc(id).delete();
+  }
 
   return (
     <div className="Ticket">
+      <p>Created by {displayName} {createdAt && 'at'} {createdAt?.toDate().toDateString()} {createdAt?.toDate().toLocaleTimeString()}</p>
       <img src={photoURL} alt="" />
       <h1>{title}</h1>
       <p>{description}</p>
+      <button onClick={resolveTicket}>Resolve</button>
     </div>
   );
 }

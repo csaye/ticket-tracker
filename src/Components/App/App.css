@@ -44,8 +44,14 @@ body {
   height: 60px;
 }
 
-.SignIn p {
+.SignOut p {
   font-size: 16px;
+}
+
+.SignOut img {
+  border-radius: 30px;
+  width: 40px;
+  margin-left: 10px;
 }
 
 .SignOut button {
@@ -63,6 +69,10 @@ body {
   flex-direction: column;
   width: 200px;
   margin: auto;
+}
+
+.TicketList form textarea {
+  resize: none;
 }
 
 .TicketList form input, .TicketList form button {
@@ -84,6 +94,11 @@ body {
 .Ticket img {
   width: 40px;
   border-radius: 20px;
+  margin: 5px;
+}
+
+.Ticket button {
+  margin: 5px;
 }
 
 .Ticket h1 {
