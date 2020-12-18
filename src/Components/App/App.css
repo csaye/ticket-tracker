@@ -6,7 +6,10 @@ button {
   cursor: pointer;
 }
 
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   background-color: #efefef;
 }
 
@@ -59,24 +62,38 @@ body {
   margin: 10px;
 }
 
-/* TicketList */
-.TicketList {
-  text-align: center;
+/* Homescreen */
+.Homescreen .column {
+  float: left;
+  width: 50%;
 }
 
-.TicketList form {
+/* TicketInput */
+
+.TicketInput {
+  background-color: #999;
+  height: auto;
+}
+
+.TicketInput form {
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   width: 200px;
   margin: auto;
 }
 
-.TicketList form textarea {
+.TicketInput form textarea {
   resize: none;
 }
 
-.TicketList form input, .TicketList form button {
+.TicketInput form input, .TicketList form button {
   margin: 5px;
+}
+
+/* TicketList */
+.TicketList {
+
 }
 
 /* Ticket */

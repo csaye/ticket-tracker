@@ -33,7 +33,7 @@ function App() {
           { auth.currentUser && <SignOut /> }
       </header>
       <section>
-        { auth.currentUser ? <TicketList /> : <SignIn /> }
+        { auth.currentUser ? <Homescreen /> : <SignIn /> }
       </section>
     </div>
   );
@@ -64,13 +64,19 @@ function SignOut() {
   );
 }
 
-// TicketList
-function TicketList() {
+function Homescreen() {
+  return (
+    <div className="Homescreen">
+      <div className="column"><TicketInput /></div>
+      <div className="column"><TicketList /></div>
+    </div>
+  );
+}
+
+// TicketInput
+function TicketInput() {
 
   const ticketsRef = firestore.collection('tickets');
-  const query = ticketsRef.orderBy('createdAt').limit(25);
-
-  const [tickets] = useCollectionData(query, {idField: 'id'});
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -93,15 +99,27 @@ function TicketList() {
   }
 
   return (
-    <div className="TicketList">
-      <div>
-        {tickets && tickets.map(tkt => <Ticket key={tkt.id} message={tkt} />)}
-      </div>
+    <div className="TicketInput">
       <form onSubmit={sendTicket}>
         <input value={title} placeholder="Title" maxLength="128" onChange={(e) => setTitle(e.target.value)} required />
         <textarea value={description} placeholder="Description" maxLength="1024" onChange={(e) => setDescription(e.target.value)} rows="4" required />
         <button type="submit">Open Ticket</button>
       </form>
+    </div>
+  );
+}
+
+// TicketList
+function TicketList() {
+
+  const ticketsRef = firestore.collection('tickets');
+  const query = ticketsRef.orderBy('createdAt').limit(25);
+
+  const [tickets] = useCollectionData(query, {idField: 'id'});
+
+  return (
+    <div className="TicketList">
+      {tickets && tickets.map(tkt => <Ticket key={tkt.id} message={tkt} />)}
     </div>
   );
 }
