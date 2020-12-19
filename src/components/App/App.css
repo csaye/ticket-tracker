@@ -39,17 +39,17 @@ html, body {
 
 .SignIn {
   background-color: #999;
-  height: 230px;
+  height: 180px;
 }
 
 .SignIn .container {
-  padding-top: 85px;
+  padding-top: 30px;
 }
 
 .SignIn button {
   padding: 10px;
   display: block;
-  margin: auto;
+  margin: 10px auto;
 }
 
 /* SignOut */

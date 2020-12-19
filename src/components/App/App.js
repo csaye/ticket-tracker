@@ -6,6 +6,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 import prioritiesJson from '../../data/PriorityData.json';
+import defaultProfile from '../../img/default_profile.jpg';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore'
@@ -53,10 +54,15 @@ function SignIn() {
     auth.signInWithPopup(provider);
   }
 
+  const signInAsDemoUser = () => {
+    auth.signInWithEmailAndPassword('demo_user@example.com', 'demo_user');
+  }
+
   return (
     <div className="SignIn">
       <div className="container">
         <button onClick={signInWithGoogle}>Sign in with Google</button>
+        <button onClick={signInAsDemoUser}>Sign in as Demo User</button>
       </div>
     </div>
   );
@@ -67,7 +73,7 @@ function SignOut() {
   return (
     <div className="SignOut">
       <p>Signed in as {auth.currentUser.displayName}</p>
-      <img src={auth.currentUser.photoURL} alt="" />
+      <img src={auth.currentUser.photoURL ? auth.currentUser.photoURL : defaultProfile} alt="" />
       <button onClick={() => auth.signOut()}>Sign Out</button>
     </div>
   );
