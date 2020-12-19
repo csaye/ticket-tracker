@@ -111,24 +111,33 @@ function TicketInput() {
 
   return (
     <div className="TicketInput">
-      <form onSubmit={sendTicket}>
-        <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
+      <div className="container">
+        <form onSubmit={sendTicket}>
+          <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
+            {
+              priorities.map(p => (
+                <option key={p[1]} value={p[1]}>{p[0]}</option>
+              ))
+            }
+          </select>
+          <input value={title} placeholder="Title" maxLength="128" onChange={(e) => setTitle(e.target.value)} required />
+          <textarea value={description} placeholder="Description" maxLength="1024" onChange={(e) => setDescription(e.target.value)} rows="4" required />
+          <button type="submit">Open Ticket</button>
+        </form>
+        <div className="checkboxes">
           {
             priorities.map(p => (
-              <option key={p[1]} value={p[1]}>{p[0]}</option>
+              <div key={`div-${p[1]}`}>
+                <label key={`label-${p[1]}`} htmlFor={`checkbox-${p[1]}`}>{p[0]}</label>
+                <input key={`checkbox-${p[1]}`} type="checkbox" id={`checkbox-${p[1]}`}></input>
+              </div>
             ))
           }
-        </select>
-        <input value={title} placeholder="Title" maxLength="128" onChange={(e) => setTitle(e.target.value)} required />
-        <textarea value={description} placeholder="Description" maxLength="1024" onChange={(e) => setDescription(e.target.value)} rows="4" required />
-        <button type="submit">Open Ticket</button>
-      </form>
+        </div>
+      </div>
     </div>
   );
 }
-
-// <label htmlFor="checkbox-priority-low" />
-// <input type="checkbox" id="checkbox-priority-low"></input>
 
 // TicketList
 function TicketList() {

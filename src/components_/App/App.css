@@ -1,4 +1,4 @@
-h1, h2, h3, h4, h5, h6, p, * {
+h1, h2, h3, h4, h5, h6, p, label, * {
   font-family: 'Prompt', sans-serif;
 }
 
@@ -82,22 +82,32 @@ html, body {
   height: 230px;
 }
 
+.TicketInput .container {
+  width: 400px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
 .TicketInput form {
   display: flex;
   flex-direction: column;
   width: 200px;
-  margin: auto;
   padding: 20px;
 }
 
 .TicketInput form textarea {
-  width: 184px;
-  margin: auto;
   resize: none;
 }
 
 .TicketInput form input, .TicketInput form button {
-  margin: 5px;
+  margin: 5px 0;
+}
+
+.TicketInput .checkboxes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 /* TicketList */
