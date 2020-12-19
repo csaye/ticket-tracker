@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Team Tracker</h1>
+        <h1>Ticket Tracker</h1>
           { auth.currentUser && <SignOut /> }
       </header>
       <section>
@@ -144,6 +144,7 @@ function Homescreen() {
             <button type="submit">Open Ticket</button>
           </form>
           <div className="checkboxes">
+            <p><u>Showing{selectedPriorities.length > 0 ? ':' : ' All'}</u></p>
             {
               priorities.map(p => (
                 <div key={`div-${p[1]}`}>
