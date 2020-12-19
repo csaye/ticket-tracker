@@ -1,6 +1,6 @@
 # Ticket Tracker
 
-Create, read, update, and delete tickets.
+A ticket tracker tool.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -39,11 +39,11 @@ html, body {
 
 .SignIn {
   background-color: #999;
-  height: 180px;
+  height: 200px;
 }
 
 .SignIn .container {
-  padding-top: 30px;
+  padding-top: 35px;
 }
 
 .SignIn button {

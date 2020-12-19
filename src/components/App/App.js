@@ -29,6 +29,10 @@ const priorities = prioritiesJson.priorities.map(p => [
   p.className
 ]);
 
+const verifiedUser = () => {
+  return auth.currentUser?.uid === '8dbeoJOAFwNbdRgJm0bgPtLw9bZ2';
+};
+
 // App
 function App() {
 
@@ -120,15 +124,17 @@ function Homescreen() {
     e.preventDefault();
     const { uid, photoURL, displayName } = auth.currentUser;
 
-    await ticketsRef.add({
-      priority,
-      title,
-      description,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      displayName,
-      uid,
-      photoURL
-    });
+    if (verifiedUser()) {
+      await ticketsRef.add({
+        priority,
+        title,
+        description,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        displayName,
+        uid,
+        photoURL
+      });
+    }
 
     setPriority(priorities[0][1]);
     setTitle('');
@@ -177,11 +183,11 @@ function Ticket(props) {
   const { title, description, id, photoURL, displayName, createdAt, priority } = props.message;
 
   const resolveTicket = () => {
-    firestore.collection('tickets').doc(id).delete();
+    if (verifiedUser()) firestore.collection('tickets').doc(id).delete();
   }
 
   const updatePriority = newPriority => {
-    firestore.collection('tickets').doc(id).update({ priority: newPriority });
+    if (verifiedUser()) firestore.collection('tickets').doc(id).update({ priority: newPriority });
   }
 
   return (
