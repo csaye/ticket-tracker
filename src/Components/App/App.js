@@ -5,6 +5,8 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
+import prioritiesJson from '../../data/PriorityData.json';
+
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
@@ -21,6 +23,11 @@ firebase.initializeApp(config);
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 
+const priorities = prioritiesJson.priorities.map(p => [
+  p.name,
+  p.className
+]);
+
 // App
 function App() {
 
@@ -33,7 +40,7 @@ function App() {
           { auth.currentUser && <SignOut /> }
       </header>
       <section>
-        { auth.currentUser ? <Homescreen /> : <SignIn /> }
+        { user ? <Homescreen /> : <SignIn /> }
       </section>
     </div>
   );
@@ -79,7 +86,7 @@ function TicketInput() {
 
   const ticketsRef = firestore.collection('tickets');
 
-  const [priority, setPriority] = useState('');
+  const [priority, setPriority] = useState(priorities[0][1]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -97,7 +104,7 @@ function TicketInput() {
       photoURL
     });
 
-    setPriority('priority-low');
+    setPriority(priorities[0][1]);
     setTitle('');
     setDescription('');
   }
@@ -106,9 +113,11 @@ function TicketInput() {
     <div className="TicketInput">
       <form onSubmit={sendTicket}>
         <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
-          <option value="priority-low">Low Priority</option>
-          <option value="priority-medium">Medium Priority</option>
-          <option value="priority-high">High Priority</option>
+          {
+            priorities.map(p => (
+              <option key={p[1]} value={p[1]}>{p[0]}</option>
+            ))
+          }
         </select>
         <input value={title} placeholder="Title" maxLength="128" onChange={(e) => setTitle(e.target.value)} required />
         <textarea value={description} placeholder="Description" maxLength="1024" onChange={(e) => setDescription(e.target.value)} rows="4" required />
@@ -117,6 +126,9 @@ function TicketInput() {
     </div>
   );
 }
+
+// <label htmlFor="checkbox-priority-low" />
+// <input type="checkbox" id="checkbox-priority-low"></input>
 
 // TicketList
 function TicketList() {
@@ -152,9 +164,11 @@ function Ticket(props) {
       {createdAt && <p>{createdAt.toDate().toDateString()} {createdAt.toDate().toLocaleTimeString()}</p>}
       <img src={photoURL} alt="" />
       <select value={priority} onChange={(e) => updatePriority(e.target.value)}>
-        <option value="priority-low">Low Priority</option>
-        <option value="priority-medium">Medium Priority</option>
-        <option value="priority-high">High Priority</option>
+        {
+          priorities.map(p => (
+            <option key={p[1]} value={p[1]}>{p[0]}</option>
+          ))
+        }
       </select>
       <h1>{title}</h1>
       <p>{description}</p>

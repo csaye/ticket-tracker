@@ -1,0 +1,16 @@
+{
+  "priorities": [
+    {
+      "name": "Low Priority",
+      "className": "priority-low"
+    },
+    {
+      "name": "Medium Priority",
+      "className": "priority-medium"
+    },
+    {
+      "name": "High Priority",
+      "className": "priority-high"
+    }
+  ]
+}
