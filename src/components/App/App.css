@@ -17,10 +17,6 @@ html, body {
   background-color: #efefef;
 }
 
-/* html, body, #root, .App, .HomeSection, .Homescreen {
-  height: 100%;
-} */
-
 /* App */
 
 .App header {
@@ -85,19 +81,6 @@ html, body {
   height: 230px;
 }
 
-@media (min-width: 768px) {
-  .TicketInput {
-    position: fixed;
-    width: 25%;
-    height: 100%;
-    float: left;
-  }
-  .TicketInput .container {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
 .TicketInput .container {
   width: 400px;
   margin: auto;
@@ -131,13 +114,38 @@ html, body {
   margin: auto;
 }
 
+@media (min-width: 768px) {
+  .TicketInput {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    float: left;
+    top: 60px;
+  }
+
+  .TicketInput .container {
+    width: 200px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .TicketInput form {
+    margin-top: 10px;
+  }
+}
+
 /* TicketList */
 
 .TicketList {
-  margin-left: 25%;
-  /* margin: 0px 10px; */
+  margin: 10px 10px 0 10px;
   display: flex;
   flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .TicketList {
+    margin-left: 310px;
+  }
 }
 
 /* Ticket */
@@ -145,7 +153,7 @@ html, body {
 .Ticket {
   text-align: center;
   max-width: 300px;
-  margin: 20px 10px;
+  margin: 10px;
   padding: 10px;
   border-radius: 20px;
   word-break: break-word;
@@ -155,7 +163,7 @@ html, body {
 
 @media (max-width: 768px) {
   .Ticket {
-    margin: 20px auto;
+    margin: 10px auto;
   }
 }
 
