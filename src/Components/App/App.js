@@ -57,19 +57,20 @@ function SignIn() {
 function SignOut() {
   return (
     <div className="SignOut">
-      <p>Signed in as {auth.currentUser.displayName} </p>
+      <p>Signed in as {auth.currentUser.displayName}</p>
       <img src={auth.currentUser.photoURL} alt="" />
       <button onClick={() => auth.signOut()}>Sign Out</button>
     </div>
   );
 }
 
+// Homescreen
 function Homescreen() {
   return (
-    <div className="Homescreen">
-      <div className="column"><TicketInput /></div>
-      <div className="column"><TicketList /></div>
-    </div>
+    <>
+      <TicketInput />
+      <TicketList />
+    </>
   );
 }
 
@@ -135,7 +136,8 @@ function Ticket(props) {
 
   return (
     <div className="Ticket">
-      <p>Created by {displayName} {createdAt && 'at'} {createdAt?.toDate().toDateString()} {createdAt?.toDate().toLocaleTimeString()}</p>
+      <p>Created by {displayName}</p>
+      {createdAt && <p>{createdAt.toDate().toDateString()} {createdAt.toDate().toLocaleTimeString()}</p>}
       <img src={photoURL} alt="" />
       <h1>{title}</h1>
       <p>{description}</p>

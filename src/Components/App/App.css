@@ -4,6 +4,8 @@ h1, p, button, textarea, input {
 
 button {
   cursor: pointer;
+  border-radius: 5px;
+  background-color: #efefef;
 }
 
 html, body {
@@ -16,7 +18,8 @@ html, body {
 /* App */
 
 .App header {
-  /* position: fixed; */
+  position: sticky;
+  top: 0;
   width: 100%;
   background-color: #fff;
   display: flex;
@@ -51,6 +54,13 @@ html, body {
   font-size: 16px;
 }
 
+@media (max-width: 768px) {
+  .SignOut p {
+    display: none;
+    visibility: hidden;
+  }
+}
+
 .SignOut img {
   border-radius: 30px;
   width: 40px;
@@ -62,38 +72,37 @@ html, body {
   margin: 10px;
 }
 
-/* Homescreen */
-.Homescreen .column {
-  float: left;
-  width: 50%;
-}
-
 /* TicketInput */
 
 .TicketInput {
   background-color: #999;
-  height: auto;
+  height: 200px;
 }
 
 .TicketInput form {
-  min-height: 300px;
   display: flex;
   flex-direction: column;
   width: 200px;
   margin: auto;
+  padding: 20px;
 }
 
 .TicketInput form textarea {
+  width: 184px;
+  margin: auto;
   resize: none;
 }
 
-.TicketInput form input, .TicketList form button {
+.TicketInput form input, .TicketInput form button {
   margin: 5px;
 }
 
 /* TicketList */
-.TicketList {
 
+.TicketList {
+  margin: 0px 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* Ticket */
@@ -101,11 +110,23 @@ html, body {
 .Ticket {
   text-align: center;
   background-color: #2196f3;
-  width: 300px;
-  margin: 20px auto;
+  width: auto;
+  margin: 20px 10px;
   padding: 10px;
   border-radius: 20px;
   word-break: break-word;
+  box-shadow: 0px 2px 5px #999;
+  transition: box-shadow 0.25s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .Ticket {
+    margin: 20px auto;
+  }
+}
+
+.Ticket:hover {
+  box-shadow: 0px 2px 15px #555;
 }
 
 .Ticket img {
@@ -124,4 +145,5 @@ html, body {
 
 .Ticket p {
   font-size: 16px;
+  margin: 5px;
 }
