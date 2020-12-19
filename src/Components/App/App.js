@@ -79,6 +79,7 @@ function TicketInput() {
 
   const ticketsRef = firestore.collection('tickets');
 
+  const [priority, setPriority] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -87,6 +88,7 @@ function TicketInput() {
     const { uid, photoURL, displayName } = auth.currentUser;
 
     await ticketsRef.add({
+      priority,
       title,
       description,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -95,6 +97,7 @@ function TicketInput() {
       photoURL
     });
 
+    setPriority('priority-low');
     setTitle('');
     setDescription('');
   }
@@ -102,6 +105,11 @@ function TicketInput() {
   return (
     <div className="TicketInput">
       <form onSubmit={sendTicket}>
+        <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
+          <option value="priority-low">Low Priority</option>
+          <option value="priority-medium">Medium Priority</option>
+          <option value="priority-high">High Priority</option>
+        </select>
         <input value={title} placeholder="Title" maxLength="128" onChange={(e) => setTitle(e.target.value)} required />
         <textarea value={description} placeholder="Description" maxLength="1024" onChange={(e) => setDescription(e.target.value)} rows="4" required />
         <button type="submit">Open Ticket</button>
@@ -128,17 +136,26 @@ function TicketList() {
 // Ticket
 function Ticket(props) {
 
-  const { title, description, id, uid, photoURL, displayName, createdAt } = props.message;
+  const { title, description, id, photoURL, displayName, createdAt, priority } = props.message;
 
   const resolveTicket = () => {
     firestore.collection('tickets').doc(id).delete();
   }
 
+  const updatePriority = newPriority => {
+    firestore.collection('tickets').doc(id).update({ priority: newPriority });
+  }
+
   return (
-    <div className="Ticket">
+    <div className={`Ticket ${priority}`}>
       <p>Created by {displayName}</p>
       {createdAt && <p>{createdAt.toDate().toDateString()} {createdAt.toDate().toLocaleTimeString()}</p>}
       <img src={photoURL} alt="" />
+      <select value={priority} onChange={(e) => updatePriority(e.target.value)}>
+        <option value="priority-low">Low Priority</option>
+        <option value="priority-medium">Medium Priority</option>
+        <option value="priority-high">High Priority</option>
+      </select>
       <h1>{title}</h1>
       <p>{description}</p>
       <button onClick={resolveTicket}>Resolve</button>

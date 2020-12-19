@@ -1,11 +1,14 @@
-h1, p, button, textarea, input {
+h1, h2, h3, h4, h5, h6, p, * {
   font-family: 'Prompt', sans-serif;
 }
 
 button {
   cursor: pointer;
-  border-radius: 5px;
   background-color: #efefef;
+}
+
+button, select, input, textarea {
+  border-radius: 5px;
 }
 
 html, body {
@@ -76,7 +79,7 @@ html, body {
 
 .TicketInput {
   background-color: #999;
-  height: 200px;
+  height: 230px;
 }
 
 .TicketInput form {
@@ -109,8 +112,7 @@ html, body {
 
 .Ticket {
   text-align: center;
-  background-color: #2196f3;
-  width: auto;
+  max-width: 350px;
   margin: 20px 10px;
   padding: 10px;
   border-radius: 20px;
@@ -135,6 +137,11 @@ html, body {
   margin: 5px;
 }
 
+.Ticket select {
+  display: block;
+  margin: 10px auto;
+}
+
 .Ticket button {
   margin: 5px;
 }
@@ -146,4 +153,16 @@ html, body {
 .Ticket p {
   font-size: 16px;
   margin: 5px;
+}
+
+.priority-low {
+  background-color: #00FF00;
+}
+
+.priority-medium {
+  background-color: yellow;
+}
+
+.priority-high {
+  background-color: red;
 }
