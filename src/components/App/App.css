@@ -37,11 +37,19 @@ html, body {
 
 /* SignIn */
 
+.SignIn {
+  background-color: #999;
+  height: 230px;
+}
+
+.SignIn .container {
+  padding-top: 85px;
+}
+
 .SignIn button {
   padding: 10px;
   display: block;
   margin: auto;
-  margin-top: 20px;
 }
 
 /* SignOut */
@@ -104,6 +112,7 @@ html, body {
 }
 
 .TicketInput .checkboxes {
+  padding-left: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -130,7 +139,7 @@ html, body {
   }
 
   .TicketInput form {
-    margin-top: 10px;
+    margin: 30px 0 10px 0;
   }
 }
 
