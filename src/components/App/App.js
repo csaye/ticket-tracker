@@ -73,18 +73,36 @@ function SignOut() {
 
 // Homescreen
 function Homescreen() {
-  return (
-    <>
-      <TicketInput />
-      <TicketList />
-    </>
-  );
-}
 
-// TicketInput
-function TicketInput() {
+  // start selected priorities
+  let [selectedPriorities, setSelectedPriorities] = useState([]);
+
+  function updatePriorities(e) {
+    let checked = e.target.checked;
+    let p = e.target.getAttribute('priority');
+    checked ? addPriority(p) : removePriority(p);
+  }
+
+  function addPriority(p) {
+    const pIndex = selectedPriorities.indexOf(p);
+    if (pIndex !== -1) { return; }
+    let newPs = selectedPriorities.slice();
+    newPs.push(p);
+    setSelectedPriorities(newPs);
+  }
+
+  function removePriority(p) {
+    const pIndex = selectedPriorities.indexOf(p);
+    if (pIndex === -1) { return; }
+    let newPs = selectedPriorities.slice();
+    newPs.splice(pIndex, 1);
+    setSelectedPriorities(newPs);
+  }
+  // end selected priorities
 
   const ticketsRef = firestore.collection('tickets');
+  const query = ticketsRef.orderBy('createdAt').limit(25);
+  const [tickets] = useCollectionData(query, {idField: 'id'});
 
   const [priority, setPriority] = useState(priorities[0][1]);
   const [title, setTitle] = useState('');
@@ -110,46 +128,36 @@ function TicketInput() {
   }
 
   return (
-    <div className="TicketInput">
-      <div className="container">
-        <form onSubmit={sendTicket}>
-          <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
+    <div className="Homescreen">
+      <div className="TicketInput">
+        <div className="container">
+          <form onSubmit={sendTicket}>
+            <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
+              {
+                priorities.map(p => (
+                  <option key={p[1]} value={p[1]}>{p[0]}</option>
+                ))
+              }
+            </select>
+            <input value={title} placeholder="Title" maxLength="128" onChange={(e) => setTitle(e.target.value)} required />
+            <textarea value={description} placeholder="Description" maxLength="1024" onChange={(e) => setDescription(e.target.value)} rows="4" required />
+            <button type="submit">Open Ticket</button>
+          </form>
+          <div className="checkboxes">
             {
               priorities.map(p => (
-                <option key={p[1]} value={p[1]}>{p[0]}</option>
+                <div key={`div-${p[1]}`}>
+                  <label key={`label-${p[1]}`} htmlFor={`checkbox-${p[1]}`}>{p[0]}</label>
+                  <input key={`checkbox-${p[1]}`} type="checkbox" id={`checkbox-${p[1]}`} priority={p[1]} onChange={updatePriorities}></input>
+                </div>
               ))
             }
-          </select>
-          <input value={title} placeholder="Title" maxLength="128" onChange={(e) => setTitle(e.target.value)} required />
-          <textarea value={description} placeholder="Description" maxLength="1024" onChange={(e) => setDescription(e.target.value)} rows="4" required />
-          <button type="submit">Open Ticket</button>
-        </form>
-        <div className="checkboxes">
-          {
-            priorities.map(p => (
-              <div key={`div-${p[1]}`}>
-                <label key={`label-${p[1]}`} htmlFor={`checkbox-${p[1]}`}>{p[0]}</label>
-                <input key={`checkbox-${p[1]}`} type="checkbox" id={`checkbox-${p[1]}`}></input>
-              </div>
-            ))
-          }
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-// TicketList
-function TicketList() {
-
-  const ticketsRef = firestore.collection('tickets');
-  const query = ticketsRef.orderBy('createdAt').limit(25);
-
-  const [tickets] = useCollectionData(query, {idField: 'id'});
-
-  return (
-    <div className="TicketList">
-      {tickets && tickets.map(tkt => <Ticket key={tkt.id} message={tkt} />)}
+      <div className="TicketList">
+        {tickets && tickets.filter(tkt => (selectedPriorities.length === 0 || selectedPriorities.includes(tkt.priority))).map(tkt => <Ticket key={tkt.id} message={tkt} />)}
+      </div>
     </div>
   );
 }
