@@ -12,11 +12,14 @@ button, select, input, textarea {
 }
 
 html, body {
-  height: 100%;
   margin: 0;
   padding: 0;
   background-color: #efefef;
 }
+
+/* html, body, #root, .App, .HomeSection, .Homescreen {
+  height: 100%;
+} */
 
 /* App */
 
@@ -82,6 +85,19 @@ html, body {
   height: 230px;
 }
 
+@media (min-width: 768px) {
+  .TicketInput {
+    position: fixed;
+    width: 25%;
+    height: 100%;
+    float: left;
+  }
+  .TicketInput .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .TicketInput .container {
   width: 400px;
   margin: auto;
@@ -118,7 +134,8 @@ html, body {
 /* TicketList */
 
 .TicketList {
-  margin: 0px 10px;
+  margin-left: 25%;
+  /* margin: 0px 10px; */
   display: flex;
   flex-wrap: wrap;
 }
@@ -127,7 +144,7 @@ html, body {
 
 .Ticket {
   text-align: center;
-  max-width: 350px;
+  max-width: 300px;
   margin: 20px 10px;
   padding: 10px;
   border-radius: 20px;

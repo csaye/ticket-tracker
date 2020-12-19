@@ -39,7 +39,7 @@ function App() {
         <h1>Ticket Tracker</h1>
           { auth.currentUser && <SignOut /> }
       </header>
-      <section>
+      <section className="HomeSection">
         { user ? <Homescreen /> : <SignIn /> }
       </section>
     </div>
