@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Ticket Tracker
+
+Create, read, update, and delete tickets.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
