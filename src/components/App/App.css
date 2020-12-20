@@ -39,11 +39,11 @@ html, body {
 
 .SignIn {
   background-color: #999;
-  height: 200px;
+  height: 180px;
 }
 
 .SignIn .container {
-  padding-top: 35px;
+  padding-top: 50px;
 }
 
 .SignIn button {
@@ -149,6 +149,10 @@ html, body {
   margin: 10px 10px 0 10px;
   display: flex;
   flex-wrap: wrap;
+}
+
+.TicketList p {
+  font-size: 32px;
 }
 
 @media (min-width: 768px) {

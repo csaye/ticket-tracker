@@ -29,9 +29,7 @@ const priorities = prioritiesJson.priorities.map(p => [
   p.className
 ]);
 
-const verifiedUser = () => {
-  return auth.currentUser?.uid === '8dbeoJOAFwNbdRgJm0bgPtLw9bZ2';
-};
+const maxTickets = 30;
 
 // App
 function App() {
@@ -58,15 +56,10 @@ function SignIn() {
     auth.signInWithPopup(provider);
   }
 
-  const signInAsDemoUser = () => {
-    auth.signInWithEmailAndPassword('demo_user@example.com', 'demo_user');
-  }
-
   return (
     <div className="SignIn">
       <div className="container">
         <button onClick={signInWithGoogle}>Sign in with Google</button>
-        <button onClick={signInAsDemoUser}>Sign in as Demo User</button>
       </div>
     </div>
   );
@@ -113,18 +106,25 @@ function Homescreen() {
   // end selected priorities
 
   const ticketsRef = firestore.collection('tickets');
-  const query = ticketsRef.orderBy('createdAt').limit(25);
+  const query = ticketsRef.orderBy('createdAt').limit(maxTickets);
   const [tickets] = useCollectionData(query, {idField: 'id'});
+  console.log(tickets);
 
   const [priority, setPriority] = useState(priorities[0][1]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
+  const allUserTickets = tickets
+  ?.filter(tkt => (tkt.uid === auth.currentUser.uid));
+
+  const userTickets = allUserTickets
+  ?.filter(tkt => (selectedPriorities.length === 0 || selectedPriorities.includes(tkt.priority)));
+
   const sendTicket = async(e) => {
     e.preventDefault();
     const { uid, photoURL, displayName } = auth.currentUser;
 
-    if (verifiedUser()) {
+    if (allUserTickets.length < maxTickets) {
       await ticketsRef.add({
         priority,
         title,
@@ -171,7 +171,9 @@ function Homescreen() {
         </div>
       </div>
       <div className="TicketList">
-        {tickets && tickets.filter(tkt => (selectedPriorities.length === 0 || selectedPriorities.includes(tkt.priority))).map(tkt => <Ticket key={tkt.id} message={tkt} />)}
+        {
+          userTickets?.length > 0 ? userTickets.map(tkt => <Ticket key={tkt.id} message={tkt} />) : <p>No tickets yet</p>
+        }
       </div>
     </div>
   );
@@ -180,21 +182,25 @@ function Homescreen() {
 // Ticket
 function Ticket(props) {
 
-  const { title, description, id, photoURL, displayName, createdAt, priority } = props.message;
+  const { title, description, uid, id, photoURL, displayName, createdAt, priority } = props.message;
 
   const resolveTicket = () => {
-    if (verifiedUser()) firestore.collection('tickets').doc(id).delete();
+    if (uid === auth.currentUser.uid) {
+      firestore.collection('tickets').doc(id).delete();
+    }
   }
 
   const updatePriority = newPriority => {
-    if (verifiedUser()) firestore.collection('tickets').doc(id).update({ priority: newPriority });
+    if (uid === auth.currentUser.uid) {
+      firestore.collection('tickets').doc(id).update({ priority: newPriority });
+    }
   }
 
   return (
     <div className={`Ticket ${priority}`}>
       <p>Created by {displayName}</p>
       {createdAt && <p>{createdAt.toDate().toDateString()} {createdAt.toDate().toLocaleTimeString()}</p>}
-      <img src={photoURL} alt="" />
+      <img src={photoURL ? photoURL : defaultProfile} alt="" />
       <select value={priority} onChange={(e) => updatePriority(e.target.value)}>
         {
           priorities.map(p => (
