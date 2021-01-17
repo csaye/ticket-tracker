@@ -1,0 +1,78 @@
+/* TicketInput */
+
+.TicketInput {
+  background-color: #999;
+  height: 230px;
+}
+
+.TicketInput .container {
+  width: 400px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.TicketInput form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 20px;
+}
+
+.TicketInput form textarea {
+  resize: none;
+}
+
+.TicketInput form input, .TicketInput form button {
+  margin: 5px 0;
+}
+
+.TicketInput .checkboxes {
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.TicketInput .checkboxes p {
+  font-size: 24px;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  .TicketInput {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    float: left;
+    top: 60px;
+  }
+
+  .TicketInput .container {
+    width: 200px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .TicketInput form {
+    margin: 30px 0 10px 0;
+  }
+}
+
+/* TicketList */
+
+.TicketList {
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.TicketList p {
+  font-size: 32px;
+}
+
+@media (min-width: 768px) {
+  .TicketList {
+    margin-left: 310px;
+  }
+}
