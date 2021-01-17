@@ -1,0 +1,27 @@
+.SignOut {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.SignOut p {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .SignOut p {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+.SignOut img {
+  border-radius: 30px;
+  width: 40px;
+  margin-left: 10px;
+}
+
+.SignOut button {
+  padding: 10px;
+  margin: 10px;
+}

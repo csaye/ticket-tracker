@@ -1,0 +1,14 @@
+.SignIn {
+  background-color: #999;
+  height: 180px;
+}
+
+.SignIn .container {
+  padding-top: 50px;
+}
+
+.SignIn button {
+  padding: 10px;
+  display: block;
+  margin: 10px auto;
+}

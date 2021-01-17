@@ -11,7 +11,9 @@ const maxTickets = 32;
 
 // Homescreen component
 function Homescreen() {
-  // start selected priorities
+  const [priority, setPriority] = useState(priorities[0][1]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   let [selectedPriorities, setSelectedPriorities] = useState([]);
 
   function updatePriorities(e) {
@@ -19,7 +21,6 @@ function Homescreen() {
     let p = e.target.getAttribute('priority');
     checked ? addPriority(p) : removePriority(p);
   }
-
   function addPriority(p) {
     const pIndex = selectedPriorities.indexOf(p);
     if (pIndex !== -1) { return; }
@@ -27,7 +28,6 @@ function Homescreen() {
     newPs.push(p);
     setSelectedPriorities(newPs);
   }
-
   function removePriority(p) {
     const pIndex = selectedPriorities.indexOf(p);
     if (pIndex === -1) { return; }
@@ -35,8 +35,8 @@ function Homescreen() {
     newPs.splice(pIndex, 1);
     setSelectedPriorities(newPs);
   }
-  // end selected priorities
 
+  // get user tickets from firestore collection
   const ticketsRef = firebase.firestore().collection('tickets');
   const query = ticketsRef
   .where('uid', '==', firebase.auth().currentUser.uid)
@@ -44,13 +44,11 @@ function Homescreen() {
   .limit(maxTickets);
   const [tickets] = useCollectionData(query, {idField: 'id'});
 
-  const [priority, setPriority] = useState(priorities[0][1]);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-
+  // filter tickets by priorities
   const filteredTickets = tickets
   ?.filter(tkt => (selectedPriorities.length === 0 || selectedPriorities.includes(tkt.priority)));
 
+  // sends a ticket to firestore
   const sendTicket = async(e) => {
     e.preventDefault();
     const { uid, photoURL, displayName } = firebase.auth().currentUser;
