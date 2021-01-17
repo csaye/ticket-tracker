@@ -5,21 +5,14 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-import prioritiesJson from '../../data/PriorityData.json';
-import defaultProfile from '../../img/default_profile.jpg';
+import prioritiesJson from '../../util/PriorityData.json';
+import defaultProfile from '../../img/default_profile.png';
+import { firebaseConfig } from '../../util/firebaseConfig.js';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-const config = {
-  apiKey: "AIzaSyCw5-tDfXVripCiIehoWt8MdbopY7Ug-wk",
-  authDomain: "csaye-team-tracker.firebaseapp.com",
-  projectId: "csaye-team-tracker",
-  storageBucket: "csaye-team-tracker.appspot.com",
-  messagingSenderId: "268589792536",
-  appId: "1:268589792536:web:4a4954b1a06580d4beb26d"
-};
-firebase.initializeApp(config);
+firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -29,7 +22,7 @@ const priorities = prioritiesJson.priorities.map(p => [
   p.className
 ]);
 
-const maxTickets = 30;
+const maxTickets = 32;
 
 // App
 function App() {
@@ -78,7 +71,6 @@ function SignOut() {
 
 // Homescreen
 function Homescreen() {
-
   // start selected priorities
   let [selectedPriorities, setSelectedPriorities] = useState([]);
 
@@ -106,24 +98,24 @@ function Homescreen() {
   // end selected priorities
 
   const ticketsRef = firestore.collection('tickets');
-  const query = ticketsRef.orderBy('createdAt').limit(maxTickets);
+  const query = ticketsRef
+  .where('uid', '==', auth.currentUser.uid)
+  .orderBy('createdAt')
+  .limit(maxTickets);
   const [tickets] = useCollectionData(query, {idField: 'id'});
 
   const [priority, setPriority] = useState(priorities[0][1]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const allUserTickets = tickets
-  ?.filter(tkt => (tkt.uid === auth.currentUser.uid));
-
-  const userTickets = allUserTickets
+  const filteredTickets = tickets
   ?.filter(tkt => (selectedPriorities.length === 0 || selectedPriorities.includes(tkt.priority)));
 
   const sendTicket = async(e) => {
     e.preventDefault();
     const { uid, photoURL, displayName } = auth.currentUser;
 
-    if (allUserTickets.length < maxTickets) {
+    if (tickets.length < maxTickets) {
       await ticketsRef.add({
         priority,
         title,
@@ -133,6 +125,8 @@ function Homescreen() {
         uid,
         photoURL
       });
+    } else {
+      alert("Too many tickets.");
     }
 
     setPriority(priorities[0][1]);
@@ -171,7 +165,9 @@ function Homescreen() {
       </div>
       <div className="TicketList">
         {
-          userTickets?.length > 0 ? userTickets.map(tkt => <Ticket key={tkt.id} message={tkt} />) : <p>No tickets yet</p>
+          filteredTickets?.length > 0 ?
+          filteredTickets.map(tkt => <Ticket key={tkt.id} message={tkt} />) :
+          <p>No tickets yet</p>
         }
       </div>
     </div>
@@ -180,7 +176,6 @@ function Homescreen() {
 
 // Ticket
 function Ticket(props) {
-
   const { title, description, uid, id, photoURL, displayName, createdAt, priority } = props.message;
 
   const resolveTicket = () => {
