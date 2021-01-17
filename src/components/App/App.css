@@ -146,7 +146,7 @@ html, body {
 /* TicketList */
 
 .TicketList {
-  margin: 10px 10px 0 10px;
+  margin: 10px;
   display: flex;
   flex-wrap: wrap;
 }

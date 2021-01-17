@@ -108,7 +108,6 @@ function Homescreen() {
   const ticketsRef = firestore.collection('tickets');
   const query = ticketsRef.orderBy('createdAt').limit(maxTickets);
   const [tickets] = useCollectionData(query, {idField: 'id'});
-  console.log(tickets);
 
   const [priority, setPriority] = useState(priorities[0][1]);
   const [title, setTitle] = useState('');
