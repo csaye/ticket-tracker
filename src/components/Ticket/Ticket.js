@@ -79,8 +79,10 @@ function Ticket(props) {
               rows="4"
               required
               />
-              <button type="button" onClick={() => setEditing(false)}>Discard changes</button>
-              <button type="submit">Save changes</button>
+              <div>
+                <button type="button" onClick={() => setEditing(false)}>Discard changes</button>
+                <button type="submit">Save changes</button>
+              </div>
             </form>
           </div>
         </div>

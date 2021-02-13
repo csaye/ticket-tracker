@@ -19,10 +19,6 @@
   padding: 20px;
 }
 
-.TicketInput form textarea {
-  resize: none;
-}
-
 .TicketInput form input, .TicketInput form button {
   margin: 5px 0;
 }
