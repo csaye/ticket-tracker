@@ -1,19 +1,51 @@
 .Ticket {
   text-align: center;
-  max-width: 300px;
   margin: 10px;
   padding: 10px;
   border-radius: 20px;
   word-break: break-word;
   box-shadow: 0px 2px 5px #999;
-  transition: box-shadow 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
 }
 
-@media (max-width: 768px) {
+/* Width */
+
+@media (min-width: 320px) {
   .Ticket {
-    margin: 10px auto;
+    /* 1 to a row */
+    width: 100%;
   }
 }
+
+@media (min-width: 576px) {
+  .Ticket {
+    /* 2 to a row */
+    width: calc((100% - (2 * 40px)) / 2);
+  }
+}
+
+@media (min-width: 768px) {
+  .Ticket {
+    /* 1 to a row */
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .Ticket {
+    /* 2 to a row */
+    width: calc((100% - (2 * 40px)) / 2);
+  }
+}
+
+@media (min-width: 1200px) {
+  .Ticket {
+    /* 3 to a row */
+    width: calc((100% - (3 * 40px)) / 3);
+  }
+}
+
+/* End width */
 
 .Ticket:hover {
   box-shadow: 0px 2px 15px #555;
