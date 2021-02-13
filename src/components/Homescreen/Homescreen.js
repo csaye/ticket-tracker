@@ -84,8 +84,8 @@ function Homescreen() {
                 ))
               }
             </select>
-            <input value={title} placeholder="Title" maxLength="128" onChange={(e) => setTitle(e.target.value)} required />
-            <textarea value={description} placeholder="Description" maxLength="1024" onChange={(e) => setDescription(e.target.value)} rows="4" required />
+            <input value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} required />
+            <textarea value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)} rows="4" required />
             <button type="submit">Open Ticket</button>
           </form>
           <div className="checkboxes">
