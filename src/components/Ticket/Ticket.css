@@ -87,37 +87,18 @@
   background-color: red;
 }
 
-/* EditModal */
+/* Modal */
 
-.EditModal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 20;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.EditModal .modal-content {
-  width: 40%;
-  background-color: #efefef;
-  padding: 10px;
-  margin: 20% auto;
-  border-radius: 30px;
-  box-shadow: 0px 2px 5px #999;
-}
-
-.EditModal .modal-content form {
+.modal .ticket-modal form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.EditModal .modal-content input {
+.modal .ticket-modal input {
   margin: 10px 0;
 }
 
-.EditModal .modal-content textarea {
+.modal .ticket-modal textarea {
   margin-bottom: 10px;
 }

@@ -8,16 +8,15 @@ import defaultProfile from '../../img/default_profile.png';
 
 // Ticket component
 function Ticket(props) {
-  const { title, description, uid, id, photoURL, displayName, createdAt, priority } = props.message;
+  const { title, description, id, photoURL, displayName, createdAt, priority } = props.message;
 
   const [editing, setEditing] = useState(false);
+  const [resolving, setResolving] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
 
   function resolveTicket() {
-    if (uid === firebase.auth().currentUser.uid) {
-      firebase.firestore().collection('tickets').doc(id).delete();
-    }
+    firebase.firestore().collection('tickets').doc(id).delete();
   }
 
   function startEditing() {
@@ -57,12 +56,12 @@ function Ticket(props) {
       </select>
       <h1>{title}</h1>
       <p>{description}</p>
-      <button onClick={resolveTicket}>Resolve</button>
+      <button onClick={() => setResolving(true)}>Resolve</button>
       <button onClick={startEditing}>Edit</button>
       {
         editing &&
-        <div className="EditModal">
-          <div className="modal-content">
+        <div className="modal">
+          <div className="modal-content ticket-modal">
             <h1>Editing Ticket</h1>
             {/* Save edits form */}
             <form onSubmit={saveEdits}>
@@ -84,6 +83,17 @@ function Ticket(props) {
                 <button type="submit">Save changes</button>
               </div>
             </form>
+          </div>
+        </div>
+      }
+      {
+        resolving &&
+        <div className="modal">
+          <div className="modal-content">
+            <h1>Resolving Ticket</h1>
+            <p>This action is irreversible.</p>
+            <button onClick={() => setResolving(false)}>Cancel</button>
+            <button onClick={resolveTicket}>Resolve</button>
           </div>
         </div>
       }
