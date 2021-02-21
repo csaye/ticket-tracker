@@ -18,16 +18,19 @@ function Subtopics() {
 
   // selects subtopic by name
   function selectSubtopic(name) {
-
+    firebase.firestore().collection('users').doc(uid).update({
+      subtopic: name
+    })
   }
 
   async function newSubtopic(e) {
     e.preventDefault();
+    const sName = subtopicName;
+    setSubtopicName('');
     await subtopicsRef.add({
-      name: subtopicName,
+      name: sName,
       uid: uid
     });
-    setSubtopicName('');
   }
 
   if (!subtopics) {
