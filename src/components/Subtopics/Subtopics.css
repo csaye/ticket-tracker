@@ -1,4 +1,11 @@
 .Subtopics {
   background-color: #bbb;
   height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.Subtopics input, .Subtopics p {
+  margin-left: 10px;
 }

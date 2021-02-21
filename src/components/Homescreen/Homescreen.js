@@ -1,7 +1,7 @@
 import './Homescreen.css';
 
 import React, { useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore'
 
 import Ticket from '../Ticket/Ticket.js';
 
@@ -37,12 +37,19 @@ function Homescreen() {
     setSelectedPriorities(newPs);
   }
 
+  // get user document
+  const uid = firebase.auth().currentUser.uid;
+  const userRef = firebase.firestore().collection('users').doc(uid);
+  const [userDoc] = useDocumentData(userRef);
+
+  // const sTopic = userDoc ? userDoc.subtopic : '';
+
   // get user tickets from firestore collection
   const ticketsRef = firebase.firestore().collection('tickets');
   const query = ticketsRef
-  .where('uid', '==', firebase.auth().currentUser.uid)
-  .orderBy('createdAt')
-  .limit(maxTickets);
+  .where('uid', '==', uid)
+  .where('subtopic', '==', userDoc ? userDoc.subtopic : '')
+  .orderBy('createdAt');
   const [tickets] = useCollectionData(query, {idField: 'id'});
 
   // filter tickets by priorities
@@ -62,7 +69,8 @@ function Homescreen() {
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         displayName,
         uid,
-        photoURL
+        photoURL,
+        subtopic: userDoc.subtopic
       });
     } else {
       alert("Too many tickets.");
@@ -104,9 +112,16 @@ function Homescreen() {
       </div>
       <div className="TicketList">
         {
-          filteredTickets?.length > 0 ?
-          filteredTickets.map(tkt => <Ticket key={tkt.id} message={tkt} />) :
-          <p>No tickets yet</p>
+          !filteredTickets ?
+          <p>Retrieving tickets...</p>
+          :
+          <>
+            {
+              filteredTickets.length > 0 ?
+              filteredTickets.map(tkt => <Ticket key={tkt.id} message={tkt} />) :
+              <p>No tickets yet</p>
+            }
+          </>
         }
       </div>
     </div>

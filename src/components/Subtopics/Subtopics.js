@@ -1,7 +1,7 @@
 import './Subtopics.css';
 
 import React, { useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore'
 
 import firebase from 'firebase/app';
 
@@ -15,6 +15,9 @@ function Subtopics() {
   .where('uid', '==', uid)
   .orderBy('name');
   const [subtopics] = useCollectionData(query, {idField: 'id'});
+
+  const userRef = firebase.firestore().collection('users').doc(uid);
+  const [userDoc] = useDocumentData(userRef);
 
   // selects subtopic by name
   function selectSubtopic(name) {
@@ -59,6 +62,7 @@ function Subtopics() {
         />
         <button type="submit">+</button>
       </form>
+      <p>{userDoc ? userDoc.subtopic : '...'}</p>
     </div>
   )
 }
