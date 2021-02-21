@@ -101,12 +101,16 @@ function Subtopics() {
         onChange={e => setSubtopicName(e.target.value)}
         required
         />
-        <button type="submit">+</button>
+        <button type="submit" className="symbol-button">
+          <p>+</p>
+        </button>
       </form>
-      <p>{userDoc ? userDoc.subtopic : '...'}</p>
+      <p className="subtopic-title">{userDoc ? userDoc.subtopic : '...'}</p>
       {
         (userDoc && userDoc.subtopic !== 'default') &&
-        <button onClick={() => setDeleting(true)}>-</button>
+        <button onClick={() => setDeleting(true)} className="symbol-button">
+          <p>-</p>
+        </button>
       }
       {
         deleting &&

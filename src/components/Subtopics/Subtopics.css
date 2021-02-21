@@ -9,3 +9,25 @@
 .Subtopics input, .Subtopics p {
   margin-left: 10px;
 }
+
+.Subtopics form {
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.Subtopics .subtopic-title {
+  margin: 0 5px;
+}
+
+.Subtopics .symbol-button {
+  overflow: hidden;
+  padding: 0 4px;
+  height: 27px;
+}
+
+.Subtopics .symbol-button p {
+  font-size: 32px;
+  padding: 0;
+  margin: -14px -1px 0 0;
+}

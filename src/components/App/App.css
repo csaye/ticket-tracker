@@ -25,6 +25,7 @@ html, body {
 
 .modal {
   position: absolute;
+  text-align: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -34,12 +35,25 @@ html, body {
 }
 
 .modal .modal-content {
-  width: 40%;
+  width: 30%;
   background-color: #efefef;
   padding: 10px;
   margin: 20% auto;
   border-radius: 30px;
   box-shadow: 0px 2px 5px #999;
+}
+
+.modal h1 {
+  font-size: 24px;
+}
+
+.modal p {
+  font-size: 16px;
+  margin: 5px;
+}
+
+.modal button {
+  margin: 5px;
 }
 
 /* App */
