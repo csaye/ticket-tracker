@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import './Homescreen.css';
+
+import React, { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 import Ticket from '../Ticket/Ticket.js';
@@ -7,7 +8,7 @@ import Ticket from '../Ticket/Ticket.js';
 import { priorities } from '../../util/priorities.js';
 import firebase from 'firebase/app';
 
-const maxTickets = 32;
+const maxTickets = 128;
 
 // Homescreen component
 function Homescreen() {
