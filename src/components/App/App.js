@@ -10,6 +10,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Homescreen from '../Homescreen/Homescreen.js';
 import SignIn from '../SignIn/SignIn.js';
 import SignOut from '../SignOut/SignOut.js';
+import Subtopics from '../Subtopics/Subtopics.js';
 
 // initialize firebase
 firebase.initializeApp(firebaseConfig);
@@ -24,6 +25,7 @@ function App() {
         <h1>Ticket Tracker</h1>
         { firebase.auth().currentUser && <SignOut /> }
       </header>
+      { firebase.auth().currentUser && <Subtopics /> }
       <section>
         { firebase.auth().currentUser ? <Homescreen /> : <SignIn /> }
       </section>
