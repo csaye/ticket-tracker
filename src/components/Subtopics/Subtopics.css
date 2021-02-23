@@ -1,23 +1,28 @@
 .Subtopics {
   background-color: #bbb;
-  height: 60px;
+  min-height: 60px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 .Subtopics input, .Subtopics p {
   margin-left: 10px;
 }
 
+.Subtopics input {
+  width: 100px;
+}
+
 .Subtopics form {
   display: flex;
   align-items: center;
-  margin: 0 20px;
+  margin: 0 15px;
 }
 
 .Subtopics .subtopic-title {
-  margin: 0 5px;
+  margin: 0 5px 0 0;
 }
 
 .Subtopics .symbol-button {

@@ -98,7 +98,9 @@ function Subtopics() {
         <input
         value={subtopicName}
         type="text"
+        placeholder="Subtopic"
         onChange={e => setSubtopicName(e.target.value)}
+        maxLength="32"
         required
         />
         <button type="submit" className="symbol-button">

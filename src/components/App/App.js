@@ -25,10 +25,10 @@ function App() {
         <h1>Ticket Tracker</h1>
         { firebase.auth().currentUser && <SignOut /> }
       </header>
-      { firebase.auth().currentUser && <Subtopics /> }
-      <section>
+      <div className="flex-items">
+        { firebase.auth().currentUser && <Subtopics /> }
         { firebase.auth().currentUser ? <Homescreen /> : <SignIn /> }
-      </section>
+      </div>
     </div>
   );
 }

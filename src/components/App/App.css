@@ -15,7 +15,8 @@ textarea {
   resize: none;
 }
 
-html, body {
+html, body, #root {
+  height: 100%;
   margin: 0;
   padding: 0;
   background-color: #efefef;
@@ -58,6 +59,10 @@ html, body {
 
 /* App */
 
+.App {
+  height: 100%;
+}
+
 .App header {
   position: sticky;
   top: 0;
@@ -72,4 +77,10 @@ html, body {
 .App header h1 {
   font-size: 36px;
   padding: 10px;
+}
+
+.App .flex-items {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 60px);
 }
