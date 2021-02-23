@@ -1,10 +1,19 @@
 .SignIn {
   background-color: #999;
   height: 180px;
+  width: 40%;
+  margin: 180px auto;
+  border-radius: 30px;
+  text-align: center;
+  box-shadow: 0 1px 5px #999;
 }
 
 .SignIn .container {
-  padding-top: 50px;
+  padding-top: 45px;
+}
+
+.SignIn h1 {
+  font-size: 32px;
 }
 
 .SignIn button {

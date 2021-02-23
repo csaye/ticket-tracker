@@ -11,6 +11,7 @@ function SignIn() {
   return (
     <div className="SignIn">
       <div className="container">
+        <h1><u>Ticket Tracker</u></h1>
         <button onClick={signInWithGoogle}>Sign in with Google</button>
       </div>
     </div>

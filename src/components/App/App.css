@@ -7,6 +7,10 @@ button {
   background-color: #efefef;
 }
 
+button:hover {
+  background-color: #dedede;
+}
+
 button, select, input, textarea {
   border-radius: 5px;
 }
