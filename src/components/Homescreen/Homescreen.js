@@ -1,7 +1,7 @@
 import './Homescreen.css';
 
 import React, { useState } from 'react';
-import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore'
+import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
 
 import Ticket from '../Ticket/Ticket.js';
 
@@ -66,7 +66,7 @@ function Homescreen() {
         priority,
         title,
         description,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdAt: new Date(),
         displayName,
         uid,
         photoURL,
